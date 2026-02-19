@@ -10,6 +10,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Health check (before all other routes)
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', service: 'PropAI', timestamp: new Date().toISOString() });
+});
+
 // Routes
 app.use('/webhook', require('./routes/webhook'));
 app.use('/api/conversations', require('./routes/conversations'));
@@ -27,11 +32,6 @@ app.use('/api/test', require('./routes/testCollection'));
 // Serve React frontend (production build)
 const clientDist = path.join(__dirname, '..', 'client', 'dist');
 app.use(express.static(clientDist));
-
-// Health check
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', service: 'PropAI', timestamp: new Date().toISOString() });
-});
 
 // SPA fallback — serve index.html for any non-API route
 app.get('{*path}', (req, res) => {
