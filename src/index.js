@@ -1,4 +1,5 @@
-console.log("Starting PropAI...");
+console.log("PropAI starting...");
+console.log("PORT env:", process.env.PORT);
 
 try {
   // Only load .env file in development — Railway injects env vars directly
@@ -46,7 +47,7 @@ try {
 
   const { startScheduler } = require('./services/scheduler');
 
-  const PORT = process.env.PORT;
+  const PORT = process.env.PORT || 3000;
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`PropAI server running on port ${PORT}`);
     startScheduler();
