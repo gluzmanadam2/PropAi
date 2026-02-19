@@ -1,6 +1,16 @@
 const OpenAI = require('openai');
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+let _openai;
+function getOpenAI() {
+  if (!_openai) {
+    if (!process.env.OPENAI_API_KEY) {
+      console.warn('WARNING: OPENAI_API_KEY not set — AI features disabled');
+      return null;
+    }
+    _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  }
+  return _openai;
+}
 
 const CLASSIFICATION_PROMPT = `You are an AI assistant for a property management company called PropAI. Your job is to classify incoming tenant messages and determine the appropriate response.
 
@@ -29,8 +39,12 @@ async function classifyMessage(message, tenantInfo) {
     ? `Tenant: ${tenantInfo.first_name} ${tenantInfo.last_name}, Unit ${tenantInfo.unit_number} at ${tenantInfo.address}, Rent: $${tenantInfo.rent_amount}, Lease ends: ${tenantInfo.lease_end}, Status: ${tenantInfo.status}`
     : 'Unknown tenant';
 
+  if (!getOpenAI()) {
+    return { classification: 'unknown', priority: null, category: null, requires_human: true, reasoning: 'AI unavailable — no API key' };
+  }
+
   try {
-    const response = await openai.chat.completions.create({
+    const response = await getOpenAI().chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
         { role: 'system', content: CLASSIFICATION_PROMPT },
@@ -90,6 +104,10 @@ For payment plan requests: empathize with the tenant's situation, ask how much t
 Return ONLY the response text, no JSON or formatting.`;
 
 async function generateResponse(classification, tenantInfo, propertyPolicies, additionalContext) {
+  if (!getOpenAI()) {
+    return 'Thank you for your message. Our team will get back to you shortly.';
+  }
+
   const tenantContext = tenantInfo
     ? `Tenant: ${tenantInfo.first_name} ${tenantInfo.last_name}, Unit ${tenantInfo.unit_number} at ${tenantInfo.address}. Rent: $${tenantInfo.rent_amount}/month. Lease: ${tenantInfo.lease_start} to ${tenantInfo.lease_end}. Payment method: ${tenantInfo.payment_method}. Status: ${tenantInfo.status}.`
     : 'Unknown tenant';
@@ -101,7 +119,7 @@ async function generateResponse(classification, tenantInfo, propertyPolicies, ad
   const contextStr = additionalContext || '';
 
   try {
-    const response = await openai.chat.completions.create({
+    const response = await getOpenAI().chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
         { role: 'system', content: RESPONSE_PROMPT },
