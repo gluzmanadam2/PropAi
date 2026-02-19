@@ -142,7 +142,7 @@ console.log(`Seeded ${allUnits.length} units`);
 const occupiedUnits = allUnits.filter(u => u.status === 'occupied');
 
 const tenantNames = [
-  { first_name: 'Sarah',    last_name: 'Mitchell',   phone: '207-364-1012', email: 'sarah.mitchell@email.com' },
+  { first_name: 'Sarah',    last_name: 'Mitchell',   phone: '+18572257226', email: 'sarah.mitchell@email.com' },
   { first_name: 'James',    last_name: 'Bouchard',   phone: '207-364-1045', email: 'james.bouchard@email.com' },
   { first_name: 'Linda',    last_name: 'Arsenault',   phone: '207-364-1078', email: 'linda.arsenault@email.com' },
   { first_name: 'Robert',   last_name: 'Theriault',   phone: '207-364-1103', email: 'robert.theriault@email.com' },
