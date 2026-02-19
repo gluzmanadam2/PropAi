@@ -174,6 +174,26 @@ function initializeDatabase() {
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
 
+    CREATE TABLE IF NOT EXISTS applications (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      unit_id INTEGER NOT NULL,
+      property_id INTEGER NOT NULL,
+      applicant_name TEXT NOT NULL,
+      applicant_phone TEXT,
+      applicant_email TEXT,
+      desired_move_in TEXT,
+      monthly_income REAL,
+      credit_score INTEGER,
+      background_check TEXT DEFAULT 'pending' CHECK(background_check IN ('pending','passed','failed','waived')),
+      status TEXT NOT NULL DEFAULT 'submitted' CHECK(status IN ('submitted','under_review','approved','denied','withdrawn')),
+      submitted_at TEXT NOT NULL DEFAULT (datetime('now')),
+      reviewed_at TEXT,
+      denied_reason TEXT,
+      notes TEXT,
+      FOREIGN KEY (unit_id) REFERENCES units(id),
+      FOREIGN KEY (property_id) REFERENCES properties(id)
+    );
+
     CREATE TABLE IF NOT EXISTS payment_plans (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       tenant_id INTEGER NOT NULL,

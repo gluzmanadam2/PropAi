@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node src/index.js",
     "seed": "node src/db/seed.js",
-    "test": "node test/simulate.js"
+    "test": "node test/simulate.js",
+    "build": "cd client && npm run build",
+    "dev": "cd client && npm run dev"
   },
   "keywords": [],
   "author": "",

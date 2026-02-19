@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark-bg text-gray-100;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-bg;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-dark-border rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-600;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-dark-card border border-dark-border rounded-xl p-5;
+  }
+  .badge {
+    @apply text-xs font-medium px-2.5 py-0.5 rounded-full;
+  }
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-150 cursor-pointer;
+  }
+  .btn-primary {
+    @apply btn bg-accent hover:bg-blue-600 text-white;
+  }
+  .btn-ghost {
+    @apply btn bg-transparent hover:bg-dark-hover text-gray-300 border border-dark-border;
+  }
+  .btn-danger {
+    @apply btn bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-600/30;
+  }
+  .btn-success {
+    @apply btn bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-600/30;
+  }
+  .metric-value {
+    @apply font-mono text-2xl font-semibold;
+  }
+  .metric-label {
+    @apply text-xs text-gray-400 uppercase tracking-wider mt-1;
+  }
+  .pulse-new {
+    animation: pulse-highlight 2s ease-in-out 3;
+  }
+  @keyframes pulse-highlight {
+    0%, 100% { background-color: rgb(17, 24, 39); }
+    50% { background-color: rgb(30, 58, 95); }
+  }
+}

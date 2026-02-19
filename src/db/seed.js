@@ -414,5 +414,47 @@ for (const idx of unpaidTenantIndices) {
 }
 console.log('Seeded collection actions');
 
+// ── Applications ──────────────────────────────────────────
+// Vacant unit IDs from the seed: 5, 10, 20, 28, 35, 42
+const applications = [
+  // 154 Essex Ave Unit 3A (unit 5) — 2 apps, one under review, one submitted
+  { unit_id: 5, property_id: 1, applicant_name: 'Chris Demers', applicant_phone: '207-555-1001', applicant_email: 'chris.demers@email.com', desired_move_in: '2026-03-01', monthly_income: 3200, credit_score: 710, background_check: 'passed', status: 'under_review', submitted_at: '2026-02-05 10:00:00', notes: 'Works at Boise Cascade mill' },
+  { unit_id: 5, property_id: 1, applicant_name: 'Amy Tremblay', applicant_phone: '207-555-1002', applicant_email: 'amy.tremblay@email.com', desired_move_in: '2026-03-15', monthly_income: 2800, credit_score: 680, background_check: 'pending', status: 'submitted', submitted_at: '2026-02-12 14:30:00', notes: 'Single parent, 1 child' },
+
+  // 16 Osgood Ave Unit 4 (unit 10) — 1 app, approved
+  { unit_id: 10, property_id: 2, applicant_name: 'Tyler Gaudet', applicant_phone: '207-555-1003', applicant_email: 'tyler.gaudet@email.com', desired_move_in: '2026-03-01', monthly_income: 2400, credit_score: 730, background_check: 'passed', status: 'approved', submitted_at: '2026-01-28 09:00:00', reviewed_at: '2026-02-03 11:00:00', notes: 'Lease signing scheduled for Feb 20' },
+
+  // 429 Penobscot St Unit 201 (unit 20) — 3 apps, mixed statuses
+  { unit_id: 20, property_id: 5, applicant_name: 'Michelle Cote', applicant_phone: '207-555-1004', applicant_email: 'michelle.cote@email.com', desired_move_in: '2026-03-01', monthly_income: 2600, credit_score: 650, background_check: 'failed', status: 'denied', submitted_at: '2026-01-20 16:00:00', reviewed_at: '2026-01-25 10:00:00', denied_reason: 'Prior eviction on record', notes: null },
+  { unit_id: 20, property_id: 5, applicant_name: 'Derek Fontaine', applicant_phone: '207-555-1005', applicant_email: 'derek.fontaine@email.com', desired_move_in: '2026-03-01', monthly_income: 3500, credit_score: 740, background_check: 'passed', status: 'under_review', submitted_at: '2026-02-08 11:15:00', notes: 'IT professional, works remotely' },
+  { unit_id: 20, property_id: 5, applicant_name: 'Sara Boucher', applicant_phone: '207-555-1006', applicant_email: 'sara.boucher@email.com', desired_move_in: '2026-04-01', monthly_income: 2900, credit_score: 695, background_check: 'pending', status: 'submitted', submitted_at: '2026-02-14 08:45:00', notes: 'Relocating from Lewiston' },
+
+  // 688 Prospect Ave Unit 4 (unit 28) — no applications (stays empty)
+
+  // 39 Carlton Ave Unit D (unit 35) — 1 app, submitted
+  { unit_id: 35, property_id: 9, applicant_name: 'Jake Pelchat', applicant_phone: '207-555-1007', applicant_email: 'jake.pelchat@email.com', desired_move_in: '2026-04-01', monthly_income: 4200, credit_score: 760, background_check: 'pending', status: 'submitted', submitted_at: '2026-02-16 13:00:00', notes: 'Young couple, no pets' },
+
+  // 6 Dix Ave Unit 3 (unit 42) — 1 app, withdrawn
+  { unit_id: 42, property_id: 11, applicant_name: 'Lisa Ouellette', applicant_phone: '207-555-1008', applicant_email: 'lisa.ouellette@email.com', desired_move_in: '2026-03-01', monthly_income: 2200, credit_score: 700, background_check: 'waived', status: 'withdrawn', submitted_at: '2026-02-01 10:00:00', reviewed_at: '2026-02-10 09:00:00', notes: 'Applicant found another unit' },
+];
+
+const insertApplication = db.prepare(`
+  INSERT INTO applications (unit_id, property_id, applicant_name, applicant_phone, applicant_email,
+    desired_move_in, monthly_income, credit_score, background_check, status, submitted_at, reviewed_at, denied_reason, notes)
+  VALUES (@unit_id, @property_id, @applicant_name, @applicant_phone, @applicant_email,
+    @desired_move_in, @monthly_income, @credit_score, @background_check, @status, @submitted_at,
+    @reviewed_at, @denied_reason, @notes)
+`);
+
+for (const app of applications) {
+  insertApplication.run({
+    reviewed_at: null,
+    denied_reason: null,
+    notes: null,
+    ...app,
+  });
+}
+console.log(`Seeded ${applications.length} applications`);
+
 db.close();
 console.log('\nDatabase seeded successfully!');
