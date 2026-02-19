@@ -1,10 +1,13 @@
 console.log("PropAI starting...");
+console.log("NODE_ENV:", process.env.NODE_ENV);
 console.log("PORT env:", process.env.PORT);
+console.log("OPENAI_API_KEY set:", !!process.env.OPENAI_API_KEY);
+console.log("TWILIO_ACCOUNT_SID:", process.env.TWILIO_ACCOUNT_SID === 'placeholder' ? 'PLACEHOLDER (bad!)' : process.env.TWILIO_ACCOUNT_SID ? 'set' : 'not set');
 
 try {
   // Only load .env file in development — Railway injects env vars directly
   if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
+    try { require('dotenv').config(); } catch (e) { /* no dotenv in production */ }
   }
   const express = require('express');
   const path = require('path');
