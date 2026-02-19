@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const { initializeDatabase } = require('./db/schema');
 
 // Ensure database tables exist
@@ -19,12 +20,22 @@ app.use('/api/dashboard', require('./routes/dashboard'));
 app.use('/api/notifications', require('./routes/notifications'));
 app.use('/api/rent-ledger', require('./routes/rentLedger'));
 app.use('/api/vendors', require('./routes/vendors'));
+app.use('/api/applications', require('./routes/applications'));
 app.use('/api/collection', require('./routes/collection'));
 app.use('/api/test', require('./routes/testCollection'));
+
+// Serve React frontend (production build)
+const clientDist = path.join(__dirname, '..', 'client', 'dist');
+app.use(express.static(clientDist));
 
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', service: 'PropAI', timestamp: new Date().toISOString() });
+});
+
+// SPA fallback — serve index.html for any non-API route
+app.get('{*path}', (req, res) => {
+  res.sendFile(path.join(clientDist, 'index.html'));
 });
 
 const { startScheduler } = require('./services/scheduler');
