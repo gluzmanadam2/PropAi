@@ -19,6 +19,9 @@ ENV PORT=3000
 # Copy source code
 COPY . .
 
+# Remove any .env file that may have leaked into the build context
+RUN rm -f .env .env.*
+
 # Build frontend
 RUN cd client && npm run build
 
