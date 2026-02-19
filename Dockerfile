@@ -26,6 +26,7 @@ RUN node src/db/seed.js
 RUN rm -rf client/node_modules client/src client/vite.config.js client/tailwind.config.js client/postcss.config.js
 
 ENV NODE_ENV=production
+ENV PORT=3000
 
 EXPOSE 3000
 

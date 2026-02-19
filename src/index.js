@@ -1,4 +1,7 @@
-require('dotenv').config();
+// Only load .env file in development — Railway injects env vars directly
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 const express = require('express');
 const path = require('path');
 const { initializeDatabase } = require('./db/schema');
@@ -40,10 +43,8 @@ app.get('{*path}', (req, res) => {
 
 const { startScheduler } = require('./services/scheduler');
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+const PORT = process.env.PORT;
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`PropAI server running on port ${PORT}`);
-  console.log(`Health check: http://localhost:${PORT}/health`);
-  console.log(`Dashboard:    http://localhost:${PORT}/api/dashboard/summary`);
   startScheduler();
 });
