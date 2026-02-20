@@ -14,12 +14,10 @@ export default function Sidebar() {
     <aside className="w-60 bg-dark-card border-r border-dark-border flex flex-col h-screen fixed left-0 top-0 z-30">
       <div className="p-5 border-b border-dark-border">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 bg-accent rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">P</span>
-          </div>
+          <div className="w-2.5 h-2.5 bg-accent rounded-full shadow-[0_0_12px_rgba(34,197,94,0.4)]" />
           <div>
-            <h1 className="text-base font-bold text-white leading-tight">PropAI</h1>
-            <p className="text-[10px] text-gray-500 uppercase tracking-widest">Management</p>
+            <h1 className="text-base font-bold text-white leading-tight">ScalePM</h1>
+            <p className="text-[10px] text-gray-500 uppercase tracking-widest">Dashboard</p>
           </div>
         </div>
       </div>
@@ -46,8 +44,8 @@ export default function Sidebar() {
 
       <div className="p-4 border-t border-dark-border">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-gradient-to-br from-accent to-purple-500 rounded-full flex items-center justify-center">
-            <span className="text-white text-xs font-bold">AG</span>
+          <div className="w-8 h-8 bg-accent/20 rounded-full flex items-center justify-center">
+            <span className="text-accent text-xs font-bold">AG</span>
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-gray-200 truncate">Adam Gluzman</p>

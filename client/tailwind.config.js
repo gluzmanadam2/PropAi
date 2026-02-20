@@ -5,15 +5,15 @@ export default {
     extend: {
       colors: {
         dark: {
-          bg: '#0B1121',
-          card: '#111827',
-          border: '#1E2D45',
-          hover: '#1a2744',
+          bg: '#0A0A0A',
+          card: '#141414',
+          border: '#262626',
+          hover: '#1C1C1C',
         },
-        accent: '#3B82F6',
+        accent: '#22C55E',
       },
       fontFamily: {
-        sans: ['DM Sans', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
     },

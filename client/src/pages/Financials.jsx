@@ -28,7 +28,7 @@ export default function Financials() {
           <span className="font-mono text-xl font-bold text-accent">{collectionPct}%</span>
         </div>
         <div className="w-full bg-dark-bg rounded-full h-5 border border-dark-border">
-          <div className="h-full rounded-full bg-gradient-to-r from-accent to-emerald-400 transition-all duration-500"
+          <div className="h-full rounded-full bg-accent transition-all duration-500"
             style={{ width: `${Math.min(collectionPct, 100)}%` }} />
         </div>
         <div className="flex items-center justify-between mt-2 text-xs text-gray-500">
