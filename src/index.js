@@ -164,12 +164,17 @@ try {
   app.use('/api/collection', require('./routes/collection'));
   app.use('/api/test', require('./routes/testCollection'));
 
-  // Serve React frontend (production build)
-  const clientDist = path.join(__dirname, '..', 'client', 'dist');
-  app.use(express.static(clientDist));
+  // Landing page at root
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'landing.html'));
+  });
 
-  // SPA fallback — serve index.html for any non-API route
-  app.get('{*path}', (req, res) => {
+  // Serve React dashboard at /dashboard
+  const clientDist = path.join(__dirname, '..', 'client', 'dist');
+  app.use('/dashboard', express.static(clientDist));
+
+  // SPA fallback — serve index.html for any /dashboard/* route
+  app.get('/dashboard/{*path}', (req, res) => {
     res.sendFile(path.join(clientDist, 'index.html'));
   });
 

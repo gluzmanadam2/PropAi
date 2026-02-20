@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scale PM</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Karla:wght@300;400;500;600&display=swap');
+
+:root {
+  --black: #111;
+  --off-black: #1C1C1C;
+  --charcoal: #2E2E2E;
+  --stone: #6E6E6E;
+  --warm-gray: #A3A3A3;
+  --light: #E5E3DF;
+  --cream: #F5F4F0;
+  --white: #FDFCFA;
+  --rule: #D6D3CD;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Karla', sans-serif;
+  background: var(--white);
+  color: var(--black);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection { background: var(--black); color: var(--white); }
+
+/* ─── UTILITY ─── */
+.container { max-width: 1140px; margin: 0 auto; padding: 0 72px; }
+@media(max-width:768px) { .container { padding: 0 28px; } }
+
+/* ─── NAV ─── */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  background: rgba(253,252,250,0.95);
+  backdrop-filter: blur(8px);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 68px;
+  border-bottom: 1px solid var(--rule);
+}
+.wordmark {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 500;
+  letter-spacing: -0.3px; color: var(--black);
+  text-decoration: none;
+}
+.nav-links { display: flex; align-items: center; gap: 36px; }
+.nav-links a {
+  font-size: 13px; font-weight: 500; letter-spacing: 0.6px;
+  text-transform: uppercase; color: var(--stone);
+  text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--black); }
+.nav-links .inquiry-link {
+  color: var(--black);
+  padding: 9px 24px;
+  border: 1px solid var(--black);
+  transition: all 0.2s;
+}
+.nav-links .inquiry-link:hover { background: var(--black); color: var(--white); }
+
+/* ─── HERO ─── */
+.hero {
+  padding: 200px 0 140px;
+  border-bottom: 1px solid var(--rule);
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 100px;
+  align-items: end;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 68px;
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -2px;
+  color: var(--black);
+}
+.hero h1 i { font-style: italic; }
+.hero-aside p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--stone);
+  border-left: 1px solid var(--rule);
+  padding-left: 28px;
+}
+.hero-aside .cta-row {
+  margin-top: 36px;
+  padding-left: 28px;
+}
+.text-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.8px;
+  text-transform: uppercase; color: var(--black);
+  text-decoration: none; transition: gap 0.3s;
+}
+.text-link:hover { gap: 16px; }
+.text-link .arrow { font-size: 18px; font-weight: 300; }
+
+/* ─── STRIP ─── */
+.strip {
+  background: var(--black);
+  padding: 56px 0;
+}
+.strip-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+.strip-item .figure {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px; font-weight: 400;
+  letter-spacing: -1px; color: var(--white);
+  margin-bottom: 6px;
+}
+.strip-item .caption {
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--warm-gray);
+}
+
+/* ─── PREMISE ─── */
+.premise {
+  padding: 120px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.premise-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+.premise .eyebrow {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--warm-gray);
+  margin-bottom: 28px;
+}
+.premise h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px; font-weight: 400;
+  line-height: 1.2; letter-spacing: -0.8px;
+}
+.premise-right {
+  padding-top: 8px;
+}
+.premise-right p {
+  font-size: 16px; line-height: 1.85;
+  color: var(--stone);
+  margin-bottom: 20px;
+}
+
+/* ─── COMPARISON TABLE ─── */
+.compare {
+  padding: 100px 0;
+  background: var(--cream);
+}
+.compare .eyebrow {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--warm-gray);
+  margin-bottom: 48px;
+  text-align: center;
+}
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.compare-table th,
+.compare-table td {
+  text-align: left;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 15px;
+  vertical-align: top;
+}
+.compare-table th {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--warm-gray);
+  padding-bottom: 16px;
+}
+.compare-table th:nth-child(3) { color: var(--black); }
+.compare-table td:first-child {
+  font-weight: 500; color: var(--charcoal);
+  width: 30%;
+}
+.compare-table td:nth-child(2) {
+  color: var(--warm-gray);
+  width: 35%;
+}
+.compare-table td:nth-child(3) {
+  color: var(--black);
+  font-weight: 600;
+  width: 35%;
+}
+.compare-table tr:last-child td { border-bottom: none; }
+
+/* ─── SERVICES ─── */
+.scope {
+  padding: 120px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.scope .eyebrow {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--warm-gray);
+  margin-bottom: 60px;
+}
+.scope-row {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 0 32px;
+  padding: 36px 0;
+  border-top: 1px solid var(--rule);
+}
+.scope-row .index {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; color: var(--rule);
+  padding-top: 2px;
+}
+.scope-row h3 {
+  font-size: 20px; font-weight: 600;
+  letter-spacing: -0.3px; margin-bottom: 10px;
+}
+.scope-row p {
+  font-size: 15px; line-height: 1.75;
+  color: var(--stone); max-width: 680px;
+}
+
+/* ─── PROOF CARD ─── */
+.proof {
+  padding: 100px 0;
+  background: var(--cream);
+}
+.proof .eyebrow {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--warm-gray);
+  margin-bottom: 48px;
+  text-align: center;
+}
+.proof-card {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  padding: 48px;
+}
+.proof-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 24px; margin-bottom: 28px;
+  border-bottom: 1px solid var(--light);
+}
+.proof-meta .tag {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--warm-gray);
+}
+.proof-meta .ts {
+  font-size: 13px; color: var(--warm-gray);
+  font-variant-numeric: tabular-nums;
+}
+.proof-block {
+  margin-bottom: 20px;
+  padding: 20px 24px;
+  border-left: 2px solid var(--rule);
+}
+.proof-block.response { border-left-color: var(--black); }
+.proof-block .who {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.proof-block .who.tenant { color: var(--warm-gray); }
+.proof-block .who.system { color: var(--black); }
+.proof-block p {
+  font-size: 15px; line-height: 1.7; color: var(--charcoal);
+}
+.proof-actions {
+  margin-top: 32px; padding-top: 28px;
+  border-top: 1px solid var(--light);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.proof-action {
+  display: flex; align-items: center; gap: 16px;
+  font-size: 14px; color: var(--stone);
+}
+.proof-dot {
+  width: 6px; height: 6px;
+  background: var(--black); border-radius: 50%;
+  flex-shrink: 0;
+}
+.proof-action .time {
+  margin-left: auto; font-size: 12px;
+  color: var(--warm-gray); font-variant-numeric: tabular-nums;
+}
+
+/* ─── PRICING ─── */
+.pricing {
+  padding: 120px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.pricing h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px; font-weight: 400;
+  line-height: 1.2; letter-spacing: -0.8px;
+  margin-bottom: 20px;
+}
+.pricing .subtext {
+  font-size: 16px; line-height: 1.8;
+  color: var(--stone); max-width: 420px;
+}
+.pricing-box {
+  border: 1px solid var(--rule);
+  padding: 48px;
+}
+.pricing-box .rate {
+  font-family: 'Playfair Display', serif;
+  font-size: 60px; font-weight: 400;
+  letter-spacing: -2px; line-height: 1;
+}
+.pricing-box .rate-label {
+  font-size: 14px; color: var(--stone);
+  margin-top: 8px; margin-bottom: 36px;
+}
+.pricing-box ul {
+  list-style: none;
+}
+.pricing-box ul li {
+  padding: 13px 0;
+  border-top: 1px solid var(--light);
+  font-size: 14px; color: var(--stone);
+  display: flex; align-items: center; gap: 14px;
+}
+.pricing-box ul li::before {
+  content: ''; width: 4px; height: 4px;
+  background: var(--black); border-radius: 50%;
+  flex-shrink: 0;
+}
+.pricing-box .pilot {
+  margin-top: 32px; padding: 20px;
+  background: var(--cream);
+  font-size: 14px; color: var(--stone);
+  line-height: 1.6; text-align: center;
+}
+.pricing-box .pilot strong { color: var(--black); font-weight: 600; }
+
+/* ─── FINAL ─── */
+.final {
+  padding: 140px 0;
+  text-align: center;
+}
+.final h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px; font-weight: 400;
+  line-height: 1.1; letter-spacing: -1.5px;
+  margin-bottom: 24px;
+}
+.final h2 i { font-style: italic; }
+.final p {
+  font-size: 16px; line-height: 1.8;
+  color: var(--stone); max-width: 460px;
+  margin: 0 auto 44px;
+}
+.solid-btn {
+  display: inline-block;
+  padding: 16px 48px;
+  background: var(--black); color: var(--white);
+  font-family: 'Karla', sans-serif;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  text-decoration: none; border: none;
+  transition: background 0.2s;
+}
+.solid-btn:hover { background: var(--charcoal); }
+.final .contact-alt {
+  margin-top: 24px;
+  font-size: 14px; color: var(--warm-gray);
+}
+.final .contact-alt a {
+  color: var(--black); text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  transition: border-color 0.2s;
+}
+.final .contact-alt a:hover { border-color: var(--black); }
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 28px 0;
+  border-top: 1px solid var(--rule);
+}
+.footer-inner {
+  display: flex; justify-content: space-between; align-items: center;
+}
+footer span { font-size: 12px; color: var(--warm-gray); }
+.foot-links { display: flex; gap: 20px; }
+.foot-links a {
+  font-size: 12px; color: var(--warm-gray);
+  text-decoration: none; transition: color 0.2s;
+}
+.foot-links a:hover { color: var(--black); }
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px) {
+  .hero { padding: 140px 0 80px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero h1 { font-size: 42px; letter-spacing: -1px; }
+  .hero-aside p { border-left: none; padding-left: 0; }
+  .hero-aside .cta-row { padding-left: 0; }
+  .strip-grid { grid-template-columns: repeat(2,1fr); gap: 32px; }
+  .premise-grid { grid-template-columns: 1fr; gap: 32px; }
+  .premise h2 { font-size: 30px; }
+  .compare-table th:nth-child(2),
+  .compare-table td:nth-child(2) { display: none; }
+  .compare-table td:first-child { width: 40%; }
+  .compare-table td:nth-child(3) { width: 60%; }
+  .scope-row { grid-template-columns: 1fr; gap: 8px; }
+  .scope-row .index { display: none; }
+  .pricing-grid { grid-template-columns: 1fr; gap: 40px; }
+  .pricing h2 { font-size: 30px; }
+  .pricing-box { padding: 32px; }
+  .proof-card { padding: 28px; }
+  .final h2 { font-size: 36px; }
+  .nav-links a:not(.inquiry-link) { display: none; }
+  .footer-inner { flex-direction: column; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="wordmark">Scale PM</a>
+      <nav class="nav-links">
+        <a href="#scope">Scope</a>
+        <a href="#pricing">Engagement</a>
+        <a href="#contact" class="inquiry-link">Inquire</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <h1>Property management<br>without the<br>property manager</h1>
+      </div>
+      <div class="hero-aside">
+        <p>Scale PM provides full-service residential property management driven by proprietary automation. Tenant communication, maintenance coordination, rent collection, and financial reporting — handled continuously, with owner oversight reduced to minutes per day.</p>
+        <div class="cta-row">
+          <a href="#contact" class="text-link">Schedule a consultation <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="strip">
+  <div class="container">
+    <div class="strip-grid">
+      <div class="strip-item">
+        <div class="figure">&lt;60s</div>
+        <div class="caption">Tenant Response</div>
+      </div>
+      <div class="strip-item">
+        <div class="figure">24 / 7</div>
+        <div class="caption">Operational Coverage</div>
+      </div>
+      <div class="strip-item">
+        <div class="figure">4–5%</div>
+        <div class="caption">Management Fee</div>
+      </div>
+      <div class="strip-item">
+        <div class="figure">100%</div>
+        <div class="caption">Inquiry Capture</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="premise">
+  <div class="container">
+    <div class="premise-grid">
+      <div>
+        <div class="eyebrow">The Problem</div>
+        <h2>Property management hasn't changed in forty years. The economics have.</h2>
+      </div>
+      <div class="premise-right">
+        <p>Traditional property managers charge 8–10% of gross rents, operate on business-hours schedules, and rely on manual processes that lead to missed inquiries, delayed maintenance, and opaque reporting.</p>
+        <p>Self-managing owners save on fees but sacrifice their time — fielding tenant calls at midnight, coordinating vendors between meetings, chasing late rent on weekends.</p>
+        <p>Neither model scales. We built a third option.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="compare">
+  <div class="container">
+    <div class="eyebrow">Side by Side</div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Industry Standard</th>
+          <th>Scale PM</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Management fee</td>
+          <td>8–10% of gross rents</td>
+          <td>4–5% of gross rents</td>
+        </tr>
+        <tr>
+          <td>Tenant response time</td>
+          <td>4–24 hours</td>
+          <td>Under 60 seconds</td>
+        </tr>
+        <tr>
+          <td>Operational hours</td>
+          <td>Weekday business hours</td>
+          <td>Continuous — 24/7/365</td>
+        </tr>
+        <tr>
+          <td>Emergency dispatch</td>
+          <td>Next business day</td>
+          <td>Immediate, with vendor tracking</td>
+        </tr>
+        <tr>
+          <td>Owner visibility</td>
+          <td>Monthly PDF statement</td>
+          <td>Real-time dashboard</td>
+        </tr>
+        <tr>
+          <td>Missed tenant inquiries</td>
+          <td>Routine</td>
+          <td>Zero</td>
+        </tr>
+        <tr>
+          <td>Owner time required</td>
+          <td>Hours per week</td>
+          <td>Minutes per day</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="scope" id="scope">
+  <div class="container">
+    <div class="eyebrow">Scope of Service</div>
+    <div class="scope-row">
+      <div class="index">01</div>
+      <div>
+        <h3>Tenant Communication</h3>
+        <p>Every inbound message — maintenance requests, rent questions, noise complaints, lease inquiries, move-out notices — answered within 60 seconds, at any hour. No voicemail. No missed texts. No delays.</p>
+      </div>
+    </div>
+    <div class="scope-row">
+      <div class="index">02</div>
+      <div>
+        <h3>Maintenance Coordination</h3>
+        <p>Requests triaged by urgency. Emergencies dispatched within minutes to the highest-rated available vendor. Standard issues queued, assigned, and tracked through completion. Owners approve costs above their set threshold.</p>
+      </div>
+    </div>
+    <div class="scope-row">
+      <div class="index">03</div>
+      <div>
+        <h3>Rent Collection &amp; Enforcement</h3>
+        <p>Structured reminder sequences escalating from courtesy notice to formal demand. Late fees applied per lease terms. Payment plan inquiries handled and routed. Legal notices drafted and queued for owner approval.</p>
+      </div>
+    </div>
+    <div class="scope-row">
+      <div class="index">04</div>
+      <div>
+        <h3>Vendor Management</h3>
+        <p>Performance tracking across response time, cost, and tenant satisfaction. Top-performing vendors dispatched first. Insurance certificates monitored. Invoices reconciled against completed work orders.</p>
+      </div>
+    </div>
+    <div class="scope-row">
+      <div class="index">05</div>
+      <div>
+        <h3>Leasing &amp; Placement</h3>
+        <p>Vacant units syndicated to listing platforms. Inquiries answered instantly with availability and unit details. Applications collected, screened, and presented with a recommendation for owner decision.</p>
+      </div>
+    </div>
+    <div class="scope-row">
+      <div class="index">06</div>
+      <div>
+        <h3>Financial Reporting</h3>
+        <p>Real-time income and expense tracking. Monthly owner statements generated automatically. Year-end packages organized by Schedule E category for direct handoff to your accountant.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="container">
+    <div class="eyebrow">In Practice</div>
+    <div class="proof-card">
+      <div class="proof-meta">
+        <span class="tag">Emergency — Plumbing</span>
+        <span class="ts">2:14 AM EST</span>
+      </div>
+      <div class="proof-block">
+        <div class="who tenant">Tenant — Unit 1A</div>
+        <p>Water is spraying everywhere from under my kitchen sink. The floor is flooding.</p>
+      </div>
+      <div class="proof-block response">
+        <div class="who system">Scale PM — 43 seconds</div>
+        <p>Hi Sarah, help is on the way. Please turn off the water supply valve under the sink if accessible. River Valley Plumbing has been dispatched and will arrive within 45 minutes. We'll update you when they confirm.</p>
+      </div>
+      <div class="proof-actions">
+        <div class="proof-action"><span class="proof-dot"></span> Emergency classified and escalated <span class="time">2:14 AM</span></div>
+        <div class="proof-action"><span class="proof-dot"></span> Vendor dispatched with work order <span class="time">2:14 AM</span></div>
+        <div class="proof-action"><span class="proof-dot"></span> Owner notified via SMS <span class="time">2:14 AM</span></div>
+        <div class="proof-action"><span class="proof-dot"></span> Vendor arrival confirmed to tenant <span class="time">2:18 AM</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="pricing-grid">
+      <div>
+        <h2>One fee.<br>Full service.<br>No exceptions.</h2>
+        <p class="subtext">No setup charges, per-unit fees, or separate line items for maintenance coordination, lease renewals, or financial reporting. One percentage of gross collected rents covers the entire scope of service.</p>
+      </div>
+      <div class="pricing-box">
+        <div class="rate">4–5%</div>
+        <div class="rate-label">of gross monthly collected rents</div>
+        <ul>
+          <li>Continuous tenant communication</li>
+          <li>Maintenance triage and vendor dispatch</li>
+          <li>Rent collection and enforcement</li>
+          <li>Real-time owner dashboard</li>
+          <li>Vendor performance management</li>
+          <li>Monthly financial statements</li>
+          <li>Leasing and tenant placement</li>
+          <li>Year-end tax documentation</li>
+        </ul>
+        <div class="pilot"><strong>30-day pilot at no cost.</strong> We onboard your portfolio and demonstrate results before any fee applies.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="contact">
+  <div class="container">
+    <h2>Your properties deserve<br>better <i>management</i></h2>
+    <p>One conversation. We'll walk through your portfolio, explain the system, and schedule your pilot that same week.</p>
+    <a href="mailto:adam@scalepm.co" class="solid-btn">Schedule a Consultation</a>
+    <div class="contact-alt">Or reach us at <a href="mailto:adam@scalepm.co">adam@scalepm.co</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span>&copy; 2026 Scale PM</span>
+      <div class="foot-links">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
